@@ -1,0 +1,11 @@
+[user]
+	name = ARATA Mizuki
+	email = minorinoki@gmail.com
+[core]
+	editor = emacs
+[rebase]
+	autoSquash = true
+[push]
+	default = simple
+[pull]
+	ff = only
