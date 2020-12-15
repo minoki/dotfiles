@@ -108,6 +108,10 @@ if uname -s | grep -qE '^MSYS'; then
 	export CUDA_PATH="$CUDA_PATH_V11_0"
 	export PATH="/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.0/bin:$PATH"
     }
+    function set-cuda-v11.1() {
+	export CUDA_PATH="$CUDA_PATH_V11_1"
+	export PATH="/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin:$PATH"
+    }
 fi
 
 # 31: red, 1: bold, 4: underline
@@ -134,21 +138,22 @@ if [ -d /usr/local/texlive/2020 ]; then
     if [[ "$(uname -s)" = Darwin ]]; then
 	export PATH="/usr/local/texlive/2020/bin/x86_64-darwin/:$PATH"
     fi
-    # TODO: $(uname -m)-$(uname -s | tr '[A-Z]' '[a-z]') ?
 fi
 
 # Standard ML / OCaml
-alias sml="rlwrap sml"
-alias ocaml="rlwrap ocaml"
-if [ -d /opt/mlton/bin ]; then
-    export PATH="/opt/mlton/bin:$PATH"
-fi
 if [ -f "$HOME/.opam/opam-init/init.sh" ]; then
     source "$HOME/.opam/opam-init/init.sh"
 fi
+if [ -d /opt/mlton/bin ]; then
+    export PATH="/opt/mlton/bin:$PATH"
+fi
+which -s rlwrap sml && alias sml="rlwrap sml"
+which -s rlwrap ocaml && alias ocaml="rlwrap ocaml"
 
 # Rust
-export PATH="$HOME/.cargo/bin:$PATH"
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # Haskell (ghcup)
 if [ -f "$HOME/.ghcup/env" ]; then
