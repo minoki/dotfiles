@@ -147,8 +147,8 @@ fi
 if [ -d /opt/mlton/bin ]; then
     export PATH="/opt/mlton/bin:$PATH"
 fi
-( which rlwrap sml > /dev/null ) && alias sml="rlwrap sml"
-( which rlwrap ocaml > /dev/null ) && alias ocaml="rlwrap ocaml"
+( which rlwrap sml > /dev/null 2>&1 ) && alias sml="rlwrap sml"
+( which rlwrap ocaml > /dev/null 2>&1 ) && alias ocaml="rlwrap ocaml"
 
 # Rust
 if [ -d "$HOME/.cargo/bin" ]; then
