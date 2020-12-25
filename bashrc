@@ -163,3 +163,7 @@ fi
 if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
+
+if [ -f "$HOME/.bashrc_local" ]; then
+    source "$HOME/.bashrc_local"
+fi
