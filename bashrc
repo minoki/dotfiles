@@ -13,7 +13,7 @@ if [[ $(uname -s) = Darwin ]]; then
 fi
 
 # MSYS2/Windows
-if uname -s | grep -qE '^MSYS'; then
+if uname -s | grep -qE '^(MSYS|MINGW)'; then
     LOCALAPPDATA_UNIX="$(cygpath --unix "$LOCALAPPDATA")"
     APPDATA_UNIX="$(cygpath --unix "$APPDATA")"
     cmd.exe //C "chcp 65001 > NUL"
