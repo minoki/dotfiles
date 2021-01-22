@@ -1,3 +1,4 @@
+# -*- mode: shell-script -*-
 alias ls="ls -G"
 alias grep="grep --color=auto"
 
