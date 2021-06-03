@@ -47,7 +47,7 @@ fi
 test -r "$HOME/.opam/opam-init/init.zsh" && . "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null || true
 
 ( which rlwrap sml > /dev/null 2>&1 ) && alias sml="rlwrap sml"
-( which rlwrap smlsharp > /dev/null 2>&1 ) && alias sml="rlwrap smlsharp"
+( which rlwrap smlsharp > /dev/null 2>&1 ) && alias smlsharp="rlwrap smlsharp"
 ( which rlwrap ocaml > /dev/null 2>&1 ) && alias ocaml="rlwrap ocaml"
 
 if [ -d "$HOME/.local/bin" ]; then

@@ -149,7 +149,7 @@ if [ -d /opt/mlton/bin ]; then
     export PATH="/opt/mlton/bin:$PATH"
 fi
 ( which rlwrap sml > /dev/null 2>&1 ) && alias sml="rlwrap sml"
-( which rlwrap smlsharp > /dev/null 2>&1 ) && alias sml="rlwrap smlsharp"
+( which rlwrap smlsharp > /dev/null 2>&1 ) && alias smlsharp="rlwrap smlsharp"
 ( which rlwrap ocaml > /dev/null 2>&1 ) && alias ocaml="rlwrap ocaml"
 
 # Rust
