@@ -22,12 +22,14 @@ if [[ $(uname -s) = Darwin ]]; then
     alias Emacs="open -a Emacs"
     if hostname | grep -qE '^sh'; then
         alias Firefox="open -a '/Applications/Firefox Nightly.app'"
+        HOMEBREW_PREFIX=/opt/homebrew
     else
         alias Firefox="open -a '/Applications/Firefox.app'"
+        HOMEBREW_PREFIX="$HOME/homebre"
     fi
     alias stree="/Applications/SourceTree.app/Contents/Resources/stree"
     alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
-    export PATH="$HOME/homebrew/bin:$PATH"
+    export PATH="$HOMEBREW_PREFIX/bin:$PATH"
     export HOMEBREW_EDITOR=emacs
     export INFOPATH="/opt/local/share/info:$INFOPATH"
 fi
@@ -49,6 +51,10 @@ test -r "$HOME/.opam/opam-init/init.zsh" && . "$HOME/.opam/opam-init/init.zsh" >
 ( which rlwrap sml > /dev/null 2>&1 ) && alias sml="rlwrap sml"
 ( which rlwrap smlsharp > /dev/null 2>&1 ) && alias smlsharp="rlwrap smlsharp"
 ( which rlwrap ocaml > /dev/null 2>&1 ) && alias ocaml="rlwrap ocaml"
+
+if [ -d /opt/mlton/bin ]; then
+    export PATH=/opt/mlton/bin:$PATH
+fi
 
 if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"

@@ -35,6 +35,7 @@
  '(lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
  '(package-selected-packages
    '(dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode)))
+ '(safe-local-variable-values '((buffer-file-coding-system . utf-8-unix))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
