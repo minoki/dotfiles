@@ -12,6 +12,10 @@
   (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/")
   )
 
+(unless (package-installed-p 'leaf)
+  (package-refresh-contents)
+  (package-install 'leaf))
+
 (add-hook 'css-mode-hook
 	  (lambda ()
 	    (setq css-indent-offset 2)
@@ -34,7 +38,7 @@
  ;; If there is more than one, they won't work right.
  '(lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
  '(package-selected-packages
-   '(dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode)))
+   '(dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode))
  '(safe-local-variable-values '((buffer-file-coding-system . utf-8-unix))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -44,12 +48,15 @@
  )
 
 ; haskell-mode
+(leaf haskell-mode :ensure t)
 (setenv "PATH" (concat (getenv "HOME") "/.local/bin" path-separator (getenv "PATH")))
 (setenv "PATH" (concat (getenv "HOME") "/.ghcup/bin" path-separator (getenv "PATH")))
 (set-variable 'haskell-mode-stylish-haskell-path "~/.local/bin/stylish-haskell")
 
 ; https://github.com/emacs-lsp/lsp-haskell#emacs-configuration
-(require 'lsp)
-(require 'lsp-haskell)
+(leaf lsp-mode :ensure t)
+(leaf lsp-haskell :ensure t)
 (add-hook 'haskell-mode-hook #'lsp)
 (add-hook 'haskell-literate-mode-hook #'lsp)
+
+(leaf yaml-mode :ensure t)
