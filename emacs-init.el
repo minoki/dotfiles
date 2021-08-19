@@ -38,7 +38,7 @@
  ;; If there is more than one, they won't work right.
  '(lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
  '(package-selected-packages
-   '(dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode))
+   '(rainbow-delimiters dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode))
  '(safe-local-variable-values '((buffer-file-coding-system . utf-8-unix))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -60,3 +60,8 @@
 (add-hook 'haskell-literate-mode-hook #'lsp)
 
 (leaf yaml-mode :ensure t)
+
+(leaf sml-mode :ensure t)
+(leaf lua-mode :ensure t)
+
+(leaf rainbow-delimiters :ensure t)
