@@ -16,6 +16,13 @@
   (package-refresh-contents)
   (package-install 'leaf))
 
+(leaf leaf-keywords
+  :ensure t
+  :init
+  (leaf el-get :ensure t)
+  :config
+  (leaf-keywords-init))
+
 (add-hook 'css-mode-hook
 	  (lambda ()
 	    (setq css-indent-offset 2)
@@ -65,3 +72,102 @@
 (leaf lua-mode :ensure t)
 
 (leaf rainbow-delimiters :ensure t)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;; Based on https://github.com/yonta/sml-emacs/blob/main/.emacs.d/init.el
+;; See also https://qiita.com/keita44_f4/items/b15c3af240914345d0d3
+
+;; company-mode
+;; https://company-mode.github.io/
+(leaf company :ensure t
+  :defvar company-backends
+  :global-minor-mode global-company-mode
+  :custom
+  (company-selection-wrap-around . t)      ; 補完候補で上下をループする
+  (company-tooltip-align-annotations . t)) ; 補完リストの型を右揃えで整列する
+
+;; company-quickhelp
+;; https://github.com/company-mode/company-quickhelp
+(leaf company-quickhelp :ensure t
+  :config
+  (company-quickhelp-mode))
+
+;; flycheck
+;; https://www.flycheck.org/en/latest/
+(leaf flycheck :ensure t
+  :defvar flycheck-checkers flycheck-checker
+  :global-minor-mode global-flycheck-mode)
+
+;; flycheck-pos-tip
+;; https://github.com/flycheck/flycheck-pos-tip
+(leaf flycheck-pos-tip :ensure t
+  :after flycheck
+  :custom
+  (flycheck-pos-tip-timeout . 0) ; pos-tipを自動で消さない
+  :config
+  (flycheck-pos-tip-mode))
+
+;; sml-mode
+;; https://www.smlnj.org/doc/Emacs/sml-mode.html
+(leaf sml-mode :ensure t
+  ;; :hook (sml-mode-hook . (lambda () (setq-local flycheck-checker 'smlsharp)))
+  :defun sml-prog-proc-proc sml-prog-proc-send-string
+  :init
+  (defun sml-prog-proc-send-region-by-string (begin end)
+    (interactive "r")
+    (let ((proc (sml-prog-proc-proc))
+          (code (buffer-substring begin end)))
+      (sml-prog-proc-send-string proc code)))
+  :bind (:sml-mode-map
+         ("C-c C-r" . sml-prog-proc-send-region-by-string)))
+
+;; company-mlton
+;; https://github.com/MatthewFluet/company-mlton
+(leaf company-mlton
+  :el-get (company-mlton
+           :url "https://github.com/MatthewFluet/company-mlton.git")
+  :config
+  (push
+   '(company-mlton-keyword company-mlton-basis :with company-dabbrev-code)
+   company-backends)
+  :hook
+  (sml-mode-hook . company-mlton-basis-autodetect))
+
+;; flycheck-smlsharp
+;; https://github.com/yonta/flycheck-smlsharp
+(leaf flycheck-smlsharp
+  :if (executable-find "smlsharp")
+  :el-get (flycheck-smlsharp
+           :url "https://github.com/yonta/flycheck-smlsharp.git")
+  :after sml-mode
+  :require t)
+
+;; flycheck-mlton
+;; https://gist.github.com/yonta/80c938a54f4d14a1b75146e9c0b76fc2
+(leaf flycheck-mlton
+  :if (executable-find "mlton")
+  :el-get gist:80c938a54f4d14a1b75146e9c0b76fc2:flycheck-mlton
+  :after sml-mode
+  :require t
+  :config
+  (add-to-list 'flycheck-checkers 'mlton))
+
+;; smartparens
+;; https://github.com/Fuco1/smartparens
+;(leaf smartparens :ensure t
+;  :defun sp-local-pair
+;  :global-minor-mode smartparens-global-mode
+;  :config
+;  (sp-local-pair 'sml-mode "(*" "*)")
+;  (sp-local-pair 'sml-mode "'" nil :actions nil)
+;  (sp-local-pair 'sml-mode "`" nil :actions nil)
+;  (sp-local-pair 'inferior-sml-mode "(*" "*)")
+;  (sp-local-pair 'inferior-sml-mode "'" nil :actions nil)
+;  (sp-local-pair 'inferior-sml-mode "`" nil :actions nil))
+
+;; dumb-jump
+;; https://github.com/jacktasia/dumb-jump
+(leaf dumb-jump :ensure t
+  :hook (xref-backend-functions . dumb-jump-xref-activate))
+
+;;; emacs-init.el ends here
