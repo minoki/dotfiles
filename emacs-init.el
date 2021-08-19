@@ -68,11 +68,12 @@
 
 (leaf yaml-mode :ensure t)
 
-(leaf sml-mode :ensure t)
 (leaf lua-mode :ensure t)
 
 (leaf rainbow-delimiters :ensure t)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+(show-paren-mode 1)
 
 ;; Based on https://github.com/yonta/sml-emacs/blob/main/.emacs.d/init.el
 ;; See also https://qiita.com/keita44_f4/items/b15c3af240914345d0d3
@@ -119,7 +120,8 @@
           (code (buffer-substring begin end)))
       (sml-prog-proc-send-string proc code)))
   :bind (:sml-mode-map
-         ("C-c C-r" . sml-prog-proc-send-region-by-string)))
+         ("C-c C-r" . sml-prog-proc-send-region-by-string))
+  :custom ((sml-electric-pipe-mode . nil)))
 
 ;; company-mlton
 ;; https://github.com/MatthewFluet/company-mlton
