@@ -25,11 +25,11 @@ if [[ $(uname -s) = Darwin ]]; then
         HOMEBREW_PREFIX=/opt/homebrew
     else
         alias Firefox="open -a '/Applications/Firefox.app'"
-        HOMEBREW_PREFIX="$HOME/homebre"
+        HOMEBREW_PREFIX="$HOME/homebrew"
     fi
     alias stree="/Applications/SourceTree.app/Contents/Resources/stree"
     alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
-    export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+    export PATH="/opt/local/bin:$HOMEBREW_PREFIX/bin:$PATH"
     export HOMEBREW_EDITOR=emacs
     export INFOPATH="/opt/local/share/info:$INFOPATH"
 fi
@@ -39,12 +39,16 @@ if [ -d /usr/local/texlive/2021 ]; then
     export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
     export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
     if [[ "$(uname -s)" = Darwin ]]; then
-	export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
+        export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
     fi
 fi
 
 # Haskell / ghcup
-[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
+if [[ $(uname -m) = x86_64 ]]; then
+    [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
+else
+    export PATH="$HOME/.cabal/bin:$PATH"
+fi
 
 test -r "$HOME/.opam/opam-init/init.zsh" && . "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null || true
 
@@ -54,6 +58,10 @@ test -r "$HOME/.opam/opam-init/init.zsh" && . "$HOME/.opam/opam-init/init.zsh" >
 
 if [ -d /opt/mlton/bin ]; then
     export PATH=/opt/mlton/bin:$PATH
+fi
+
+if [ -d /opt/polyml/bin ]; then
+    export PATH=/opt/polyml/bin:$PATH
 fi
 
 if [ -d "$HOME/.local/bin" ]; then
