@@ -1,8 +1,12 @@
 (global-set-key "\C-h" 'backward-delete-char-untabify)
 (setq column-number-mode t)
-(setq show-trailing-whitespace t)
 (setq inhibit-startup-screen t)
+(setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
+(setq-default c-basic-offset 4)
+(setq-default lua-indent-level 2)
+(setq-default css-indent-offset 2)
+(show-paren-mode 1)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -22,21 +26,6 @@
   (leaf el-get :ensure t)
   :config
   (leaf-keywords-init))
-
-(add-hook 'css-mode-hook
-	  (lambda ()
-	    (setq css-indent-offset 2)
-	    ))
-
-(add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (setq c-basic-offset 4)
-	    ))
-
-(add-hook 'lua-mode-hook
-	  (lambda ()
-	    (setq lua-indent-level 2)
-	    ))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -72,8 +61,6 @@
 
 (leaf rainbow-delimiters :ensure t)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
-(show-paren-mode 1)
 
 ;; Based on https://github.com/yonta/sml-emacs/blob/main/.emacs.d/init.el
 ;; See also https://qiita.com/keita44_f4/items/b15c3af240914345d0d3
