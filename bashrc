@@ -1,9 +1,9 @@
 # -*- mode: shell-script -*-
-alias ls="ls -G"
 alias grep="grep --color=auto"
 
 # macOS
 if [[ $(uname -s) = Darwin ]]; then
+    alias ls="ls -G"
     alias Finder="open -a Finder.app"
     alias TextEdit="open -a TextEdit.app"
     alias Firefox="open -a /Applications/Firefox.app"
@@ -11,6 +11,8 @@ if [[ $(uname -s) = Darwin ]]; then
     alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
     alias brew="$HOME/homebrew/bin/brew"
     alias stree="/Applications/SourceTree.app/Contents/Resources/stree"
+else
+    alias ls="ls --color=auto"
 fi
 
 # MSYS2/Windows

@@ -44,11 +44,7 @@ if [ -d /usr/local/texlive/2021 ]; then
 fi
 
 # Haskell / ghcup
-if [[ $(uname -m) = x86_64 ]]; then
-    [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
-else
-    export PATH="$HOME/.cabal/bin:$PATH"
-fi
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
 
 test -r "$HOME/.opam/opam-init/init.zsh" && . "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null || true
 
