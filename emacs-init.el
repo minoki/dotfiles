@@ -34,7 +34,7 @@
  ;; If there is more than one, they won't work right.
  '(lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
  '(package-selected-packages
-   '(rainbow-delimiters dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode))
+   '(tide rainbow-delimiters dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode))
  '(safe-local-variable-values '((buffer-file-coding-system . utf-8-unix))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -47,7 +47,13 @@
 (leaf haskell-mode :ensure t)
 (setenv "PATH" (concat (getenv "HOME") "/.local/bin" path-separator (getenv "PATH")))
 (setenv "PATH" (concat (getenv "HOME") "/.ghcup/bin" path-separator (getenv "PATH")))
-(set-variable 'haskell-mode-stylish-haskell-path "~/.local/bin/stylish-haskell")
+(if (file-exists-p "~/.local/bin/stylish-haskell")
+    (set-variable 'haskell-mode-stylish-haskell-path "~/.local/bin/stylish-haskell")
+  (if (file-exists-p "~/.cabal/bin/stylish-haskell")
+      (set-variable 'haskell-mode-stylish-haskell-path "~/.cabal/bin/stylish-haskell")
+    nil
+  )
+  )
 
 ; https://github.com/emacs-lsp/lsp-haskell#emacs-configuration
 (leaf lsp-mode :ensure t)
@@ -61,6 +67,17 @@
 
 (leaf rainbow-delimiters :ensure t)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+(leaf tide :ensure t)
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; Based on https://github.com/yonta/sml-emacs/blob/main/.emacs.d/init.el
 ;; See also https://qiita.com/keita44_f4/items/b15c3af240914345d0d3
