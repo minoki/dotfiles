@@ -34,7 +34,7 @@
  ;; If there is more than one, they won't work right.
  '(lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
  '(package-selected-packages
-   '(tide rainbow-delimiters dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode))
+   '(dockerfile-mode tuareg tide rainbow-delimiters dumb-jump smartparens flycheck-pos-tip flycheck company-quickhelp company el-get leaf-keywords leaf lua-mode sml-mode proof-general yaml-mode lsp-ui lsp-haskell lsp-mode haskell-mode))
  '(safe-local-variable-values '((buffer-file-coding-system . utf-8-unix))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -175,5 +175,11 @@
 ;; https://github.com/jacktasia/dumb-jump
 (leaf dumb-jump :ensure t
   :hook (xref-backend-functions . dumb-jump-xref-activate))
+
+;; OCaml: tuareg-mode
+(leaf tuareg :ensure t)
+
+;; Dockerfile
+(leaf dockerfile-mode :ensure t)
 
 ;;; emacs-init.el ends here
