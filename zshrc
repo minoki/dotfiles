@@ -64,10 +64,6 @@ if [ -d /opt/mlton/bin ]; then
     export PATH=/opt/mlton/bin:$PATH
 fi
 
-if [ -d /opt/polyml/bin ]; then
-    export PATH=/opt/polyml/bin:$PATH
-fi
-
 if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
