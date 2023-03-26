@@ -35,18 +35,26 @@ if [[ $(uname -s) = Darwin ]]; then
 fi
 
 # TeX Live
-if [ -d /usr/local/texlive/2022 ]; then
-    export MANPATH="/usr/local/texlive/2022/texmf-dist/doc/man:$MANPATH"
-    export INFOPATH="/usr/local/texlive/2022/texmf-dist/doc/info:$INFOPATH"
+if [ -d /usr/local/texlive/2023 ]; then
+    export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
+    export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
     if [[ "$(uname -s)" = Darwin ]]; then
-        export PATH="/usr/local/texlive/2022/bin/universal-darwin:$PATH"
+        export PATH="/usr/local/texlive/2023/bin/universal-darwin:$PATH"
     fi
 else
-    if [ -d /usr/local/texlive/2021 ]; then
-        export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
-        export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
+    if [ -d /usr/local/texlive/2022 ]; then
+        export MANPATH="/usr/local/texlive/2022/texmf-dist/doc/man:$MANPATH"
+        export INFOPATH="/usr/local/texlive/2022/texmf-dist/doc/info:$INFOPATH"
         if [[ "$(uname -s)" = Darwin ]]; then
-            export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
+            export PATH="/usr/local/texlive/2022/bin/universal-darwin:$PATH"
+        fi
+    else
+        if [ -d /usr/local/texlive/2021 ]; then
+            export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
+            export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
+            if [[ "$(uname -s)" = Darwin ]]; then
+                export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
+            fi
         fi
     fi
 fi
