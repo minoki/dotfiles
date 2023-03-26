@@ -20,11 +20,10 @@ setopt no_auto_remove_slash
 if [[ $(uname -s) = Darwin ]]; then
     alias Finder="open -a Finder.app"
     alias Emacs="open -a Emacs"
+    alias Firefox="open -a '/Applications/Firefox.app'"
     if hostname | grep -qE '^sh'; then
-        alias Firefox="open -a '/Applications/Firefox Nightly.app'"
         HOMEBREW_PREFIX=/opt/homebrew
     else
-        alias Firefox="open -a '/Applications/Firefox.app'"
         HOMEBREW_PREFIX="$HOME/homebrew"
     fi
     alias stree="/Applications/SourceTree.app/Contents/Resources/stree"
@@ -67,6 +66,7 @@ test -r "$HOME/.opam/opam-init/init.zsh" && . "$HOME/.opam/opam-init/init.zsh" >
 ( which rlwrap sml > /dev/null 2>&1 ) && alias sml="rlwrap sml"
 ( which rlwrap smlsharp > /dev/null 2>&1 ) && alias smlsharp="rlwrap smlsharp"
 ( which rlwrap ocaml > /dev/null 2>&1 ) && alias ocaml="rlwrap ocaml"
+( which rlwrap luajit > /dev/null 2>&1 ) && alias luajit="rlwrap luajit"
 
 if [ -d /opt/mlton/bin ]; then
     export PATH=/opt/mlton/bin:$PATH

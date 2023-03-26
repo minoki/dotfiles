@@ -7,6 +7,7 @@
 (setq-default lua-indent-level 2)
 (setq-default css-indent-offset 2)
 (show-paren-mode 1)
+(set-language-environment "Japanese")
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -45,6 +46,8 @@
 
 ; haskell-mode
 (leaf haskell-mode :ensure t)
+(add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
+(add-to-list 'exec-path (concat (getenv "HOME") "/.ghcup/bin"))
 (setenv "PATH" (concat (getenv "HOME") "/.local/bin" path-separator (getenv "PATH")))
 (setenv "PATH" (concat (getenv "HOME") "/.ghcup/bin" path-separator (getenv "PATH")))
 (if (file-exists-p "~/.local/bin/stylish-haskell")
@@ -182,4 +185,9 @@
 ;; Dockerfile
 (leaf dockerfile-mode :ensure t)
 
+(leaf po-mode :ensure t)
+
 ;;; emacs-init.el ends here
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
