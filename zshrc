@@ -21,7 +21,7 @@ if [[ $(uname -s) = Darwin ]]; then
     alias Finder="open -a Finder.app"
     alias Emacs="open -a Emacs"
     alias Firefox="open -a '/Applications/Firefox.app'"
-    if hostname | grep -qE '^sh'; then
+    if [[ $(uname -m) = arm64 ]]; then
         HOMEBREW_PREFIX=/opt/homebrew
     else
         HOMEBREW_PREFIX="$HOME/homebrew"
