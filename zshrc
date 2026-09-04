@@ -6,6 +6,10 @@ fpath=(~/.zsh/completion $fpath)
 autoload -U compinit
 compinit -u
 
+local ssh_config_hosts
+ssh_config_hosts=(${${${(M)${(f)"$(cat ~/.ssh/config(N) ~/.ssh/conf.d/*(N) 2>/dev/null)"}:#Host *}#Host }:#*[*?]*})
+zstyle ':completion:*:(ssh|scp|sftp|rsync):*' hosts $ssh_config_hosts
+
 autoload -U colors && colors
 
 if hostname | grep -qE '^sh'; then
