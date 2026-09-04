@@ -11,3 +11,5 @@
 	ff = only
 [init]
 	defaultBranch = master
+[grep]
+	lineNumber = true
