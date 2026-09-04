@@ -35,6 +35,9 @@ if [[ $(uname -s) = Darwin ]]; then
     export PATH="/opt/local/bin:$HOMEBREW_PREFIX/bin:$PATH"
     export HOMEBREW_EDITOR=emacs
     export INFOPATH="/opt/local/share/info:$INFOPATH"
+    if [ -x "/opt/local/lib/ImageMagick7/bin/magick" ]; then
+        alias magick="/opt/local/lib/ImageMagick7/bin/magick"
+    fi
 fi
 
 # TeX Live
