@@ -38,45 +38,17 @@ if [[ $(uname -s) = Darwin ]]; then
 fi
 
 # TeX Live
-if [ -d /usr/local/texlive/2025 ]; then
-    export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
-    export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
-    if [[ "$(uname -s)" = Darwin ]]; then
-        export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
-    fi
-else
-    if [ -d /usr/local/texlive/2024 ]; then
-        export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
-        export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
+for year in 2026 2025 2024 2023 2022 2021; do
+    prefix="/usr/local/texlive/$year"
+    if [ -d "$prefix" ]; then
+        export MANPATH="$prefix/texmf-dist/doc/man:$MANPATH"
+        export INFOPATH="$prefix/texmf-dist/doc/info:$INFOPATH"
         if [[ "$(uname -s)" = Darwin ]]; then
-            export PATH="/usr/local/texlive/2024/bin/universal-darwin:$PATH"
+            export PATH="$prefix/bin/universal-darwin:$PATH"
         fi
-    else
-        if [ -d /usr/local/texlive/2023 ]; then
-            export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
-            export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
-            if [[ "$(uname -s)" = Darwin ]]; then
-                export PATH="/usr/local/texlive/2023/bin/universal-darwin:$PATH"
-            fi
-        else
-            if [ -d /usr/local/texlive/2022 ]; then
-                export MANPATH="/usr/local/texlive/2022/texmf-dist/doc/man:$MANPATH"
-                export INFOPATH="/usr/local/texlive/2022/texmf-dist/doc/info:$INFOPATH"
-                if [[ "$(uname -s)" = Darwin ]]; then
-                    export PATH="/usr/local/texlive/2022/bin/universal-darwin:$PATH"
-                fi
-            else
-                if [ -d /usr/local/texlive/2021 ]; then
-                    export MANPATH="/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH"
-                    export INFOPATH="/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH"
-                    if [[ "$(uname -s)" = Darwin ]]; then
-                        export PATH="/usr/local/texlive/2021/bin/universal-darwin:$PATH"
-                    fi
-                fi
-            fi
-        fi
+        break
     fi
-fi
+done
 
 # Haskell / ghcup
 if [ -f "$HOME/.ghcup/env" ]; then
